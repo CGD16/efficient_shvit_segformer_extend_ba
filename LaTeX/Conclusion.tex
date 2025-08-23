@@ -1,0 +1,23 @@
+\chapter{Summary, Conclusions, and Future Work}
+\glsresetall
+In this thesis, existing \gls{2d} Vision Transformer models, SegFormer with \gls{mvt} and \gls{shvit}, were adapted to handle \gls{3d} volumetric data. These models were specifically utilized to identify seven segments: {\tt Background}, {\tt Karton}, {\tt Außensohle}, {\tt Innensohle}, {\tt Obermaterial}, {\tt Zunge}, and {\tt Füllmaterial} from the \gls{3d} shoe scans. The F1-score was employed as the evaluation metric. To address the problem of memory-intensive attention mechanisms, with a complexity of $O(n^2)$, central self-attention (sliding window) was implemented to enhance performance.
+
+\bigskip
+
+The changes made to SegFormer with \gls{mvt} and \gls{shvit} have effectively facilitated the processing of \gls{3d} volumetric data for complex segmentation tasks, specifically targeting shoe scans. By incorporating central self-attention through a sliding window approach, the typical high memory demands of standard attention mechanisms were substantially reduced. This innovation not only extends the applicability of Vision Transformers but also establishes a foundation for more efficient and scalable solutions within \gls{3d} data environments. This research highlights the potential for implementing advanced model architectures across new domains, offering valuable perspectives on integrating \gls{2d} model principles into \gls{3d} datasets. Future endeavors may focus deeper on optimizing attention mechanisms and expanding experimentation to include various types of \gls{3d} segmented data.
+
+\medskip
+
+A series of experiments were conducted to compare the SegFormer model integrated with different backbones: \gls{mvt}, \gls{shvit}, and \glsxtrshort{shvit_csa} evaluating both F1-score and \glsxtrshort{gpu} memory consumption, along with varied hyperparameter configurations. The experiments revealed the superior performance of \gls{shvit} models over \gls{mvt}, showing comparable F1-scores between \gls{shvit} and the central self-attention equipped model. Nevertheless, the central self-attention model exhibited approximately 45\% lower memory usage compared to the standard \gls{shvit} models.
+
+\medskip
+
+In terms of hyperparameter configurations, \gls{shvit_csa} with two convolutional layers in the PatchEmbed block and B5/S2 configuration emerged as most effective, demonstrating the optimal F1/\glsxtrshort{gpu} memory ratio. This configuration allowed for an increase in maximum volume dimensions up to {\tt (320,320,320)}, while constraint memory usage remained within the 24\,GB limit of the graphics card. Additionally, when adjusting kernel sizes, a kernel size of 1 displayed slightly superior potential relative to the standard variant with a kernel size of 3. The benefit of kernel size 1 lies in its precision in detail focus, whereas kernel size 3 and larger resulted in excessive convolution across the relatively small volume of {\tt (28,28,28)} in the central self-attention block, decreasing efficiency.
+
+\medskip
+
+These advancements not only broaden the functional scope of Vision Transformers but also enhance the efficiency and scalability of solutions within \gls{3d} data environments. The insights gained from this research contribute to the ongoing development of attention mechanisms and model architectures, paving the way for further exploration in diverse \gls{3d} data segmentation applications.
+
+\bigskip
+
+Future research could explore the implementation of additional Vision Transformer models as backbones and compare their performance with \gls{shvit}. Addressing the high memory demand of the attention block remains an area for investigation. New advanced techniques might offer further potential for reducing memory consumption. However, going beyond the currently maximal usable volume of {\tt (320,320,320)} may prove challenging due to the constraints imposed by the 24\,GB limit of the graphics card. For \gls{shvit} models with two convolutional layers in the PatchEmbed block within the \gls{shvit} head, the next larger volume would be {\tt (352,352,352)}, but for sure hard to reach. Therefore, innovative strategies are needed to enable efficient scaling without surpassing hardware limitations.

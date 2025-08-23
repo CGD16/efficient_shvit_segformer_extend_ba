@@ -1,0 +1,35 @@
+\chapter[Setting up Windows Subsystem for Linux (WSL)]{Setting up Windows Subsystem for Linux (WSL) on Windows 11} \label{sec::WSL}
+To facilitate the execution of Linux-based software and tools in a Windows environment, Windows Subsystem for Linux (WSL) was set up on a Windows 11 machine. The following steps outline the process of setting up WSL, installing Miniconda, and creating a virtual environment to run PyTorch 2.60\footnote{The PyTorch version 2.5.1 is also working.} with GPU support.
+
+After downloading and installing Ubuntu 24.04 using Microsoft Store the following steps have to be carried out. Before step 4 is executed Miniconda had to be downloaded\footnote{\url{https://www.anaconda.com/download/success}}:
+\begin{tcolorbox}[breakable, enhanced, width=\textwidth, colback={lightgray}]  
+\begin{Python}
+1  sudo apt update -y
+2  sudo apt upgrade -y
+3  cd /mnt/c/Users/USERNAME/Downloads/
+4  bash Miniconda3-latest-Linux-x86_64.sh
+5  cd ~
+6  ~/miniconda3/bin/conda init bash
+7  ~/miniconda3/bin/conda init zsh
+8  exit
+\end{Python}
+\end{tcolorbox}		
+
+The installation of PyTorch is very easy and does not require additional  CUDA drivers or other dependencies, unlike TensorFlow. PyTorch comes with built-in CUDA support\footnote{\url{https://pytorch.org/get-started/locally/}}, meaning it can be simply installed using {\tt pip}, and it will automatically handle the necessary CUDA libraries.
+\begin{tcolorbox}[breakable, enhanced, width=\textwidth, colback={lightgray}]  
+\begin{Python}
+ 9  conda create -n torch260 python=3.12
+10  conda activate torch260
+11  pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+12  conda install -c conda-forge opencv matplotlib tqdm seaborn pandas plotly lightning
+13  pip install torchsummary torchviz pydicom slicerio unfoldNd vedo
+14  sudo apt-get install graphviz
+15  cd /mnt/c/Users/USERNAME/Documents/Python/shoes_segformer/Software/
+16  pip install PythonTools-3.7.0-py2.py3-none-any.whl
+17  conda install conda-forge::libsqlite --force-reinstall
+18  conda install conda-forge::sqlite --force-reinstall
+\end{Python}
+\end{tcolorbox}		
+After setting up PyTorch, essential libraries like {\tt matplotlib}, {\tt tqdm}, {\tt seaborn}, etc.~needed for running the SegFormer scripts have to be installed. Additionally, {\tt pydicom} and {\tt slicerio} were included for handling the annotation files for the shoe files. To extract data from the original shoe volume data from the files in {\tt .rek} dataformat, the {\tt PythonTools} software was required.
+
+While running the scripts in VSCode, the kernel occasionally crashed. This issue was resolved by reinstalling the {\tt sqlite} and {\tt libsqlite} packages at the end\footnote{\url{https://stackoverflow.com/a/79484466/27900239}}.

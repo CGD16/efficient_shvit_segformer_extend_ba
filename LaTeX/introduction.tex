@@ -1,0 +1,55 @@
+\chapter{Introduction}
+
+Deep learning has greatly improved how images are analyzed, especially with \glspl{cnn}, but recently \glspl{vit} have become a strong option by using self-attention to understand connections over long distances. Dosovitskiy et al.~\cite{Dosovitskiy2021ViT} showed that a pure Vision Transformer operating on sequences of image patches can achieve state-of-the-art image classification performance, rivaling \glspl{cnn} when pre-trained on large datasets. This success has spurred the adaptation of transformer-based architectures to image segmentation tasks, despite their substantial computational and memory demands.
+
+\medskip
+
+Transformers have been applied to \gls{3d} medical image segmentation, often in U-Net-style architectures to capture global volumetric context. For example, Hatamizadeh et al. \cite{Hatamizadeh2022UNETR} introduced \gls{unetr}, which treats a \gls{3d} volume as a sequence of patches fed into a Transformer encoder; these global features are then integrated into a \gls{cnn} decoder via skip connections in a U-shaped design. This increases the Transformers ability to learn rich, multiscale representations of the entire volume. Tang et al. \cite{Tang2022SwinUNETR} also suggested Swin \gls{unetr}{\tiny }, employing a hierarchical Swin Transformer encoder for \gls{3d} segmentation of medical scans. Both approaches attained competitive results on benchmark datasets by combining Transformers' global attention with \gls{cnn} decoders for fine localization.
+
+\medskip
+
+However, these benefits often come at a cost: the attention mechanism in Transformers scales quadratically with input size, leading to significant memory consumption, especially for high-resolution volumetric data. This makes them challenging to use in practical scenarios without substantial \gls{gpu} resources or architectural optimizations. Moreover, the large number of learnable parameters in Vision Transformers increases the demand for training data. Recent findings suggest that, to generalize reliably, the number of training samples should be about ten times greater than the number of model parameters \cite{ALWOSHEEL2018167}.
+In \gls{3d} segmentation, where a single scan may contain millions of voxels but only limited independent samples, this severely limits the effective training capacity unless model complexity is carefully controlled.
+
+\medskip
+
+Perera et al. \cite{perera2024segformer3defficienttransformer3d} presented SegFormer3D, a lightweight volumetric Transformer that computes attention across multiscale features in a purely attention-based hierarchy. SegFormer3D uses an all-\gls{mlp} decoder and achieves performance on par with much larger models on tasks like multi-organ and brain tumor segmentation. These studies show that Vision Transformer architectures can successfully understand \gls{3d} context, often with far fewer parameters or less computation than traditional \gls{cnn} models.
+
+
+\section{Background and Motivation}
+The growing complexity and volume of \gls{3d} data underscore the need for efficient segmentation methods. Conventional \gls{2d} approaches often fall short, unable to fully utilize depth information critical for tasks like anatomical mapping or obstacle detection. Recently, several studies have been published that explore the use of Vision Transformers for \gls{3d} image segmentation, with a particular focus on applications in the medical domain \cite{das2025vivitvariableinputvisiontransformer, gan20243deffivitcaps3defficientvision, jollans2024visiontransformersincreaseefficiency}.  
+
+\medskip
+
+This thesis aims to extend the capabilities of \glspl{vit} to address unique challenges of \gls{3d} image analysis, with a particular emphasis on reducing memory consumption. In doing so, it seeks to bridge the gap between algorithmic efficiency and practical applicability in real-world segmentation tasks.
+
+
+\section{Objectives and Scope}
+The objective of this study focuses mainly at optimizing Vision Transformer architectures for high-resolution \gls{3d} image segmentation, with a focus on reducing their substantial memory requirements that hinder scalability and generalization. To counter this, the work introduces architectural modifications, most notably, a central self-based attention mechanism that improves computational and memory efficiency while maintaining performance.
+
+\medskip
+
+These enhancements are evaluated using \gls{3d} scans of shoes, providing a practical case study to assess both the effectiveness and feasibility of the proposed approach in real-world scenarios.
+
+\medskip
+
+While the primary application is footwear segmentation, the methods developed are broadly applicable to other domains where accurate \gls{3d} data processing is essential, such as medical imaging, autonomous driving, industrial inspection, and others.
+
+\medskip
+
+The scope of this work includes a comparative analysis of various \gls{vit} configurations, highlighting the trade-offs between segmentation accuracy and memory efficiency. The results provide useful information on how to adjust transformer-based models for \gls{3d} data, helping to improve machine learning methods for analyzing three-dimensional objects.
+
+
+\section{Structure of this Thesis}
+This thesis is structured into several chapters, each addressing a key part of the work. The organization is designed to follow a logical sequence, starting from the methodological background to the evaluation and conclusion. The overview of the structure is as follows:
+\begin{itemize}
+	\item Methodology: This section details the technical implementation of the ViT architectures being evaluated. It describes the modifications applied, especially the integration of central self-attention, and presents comprehensive information to define the employed methodological framework.
+	
+	\item Data Preparation: In this context, the thesis provides in-depth coverage of the data collection processes, preparation steps, and augmentation techniques that are applied to use \gls{3d} scans effectively. This chapter underscores the importance of data integrity and variability in ensuring robust model evaluations.
+	
+	\item Results and Discussion: This chapter analyzes model performance, revealing the trade-offs between segmentation accuracy and memory efficiency. It evaluates the effectiveness of the proposed adaptations, offering both quantitative comparisons and qualitative discussions of the findings.
+	
+	\item Summary, Conclusion, and Future Work: In this closing section, the thesis summarizes the key research contributions and draws meaningful conclusions from the study. It also discusses potential implications and suggests ways for future research to build upon the basis laid by this thesis.
+	
+	\item Appendices: This portion of the thesis includes additional resources, offering practical insights into the computational environments set up for experiments and access to the source codes of models used. Such resources serve to enhance reproducibility and allow further exploration based on this thesis.
+\end{itemize}
