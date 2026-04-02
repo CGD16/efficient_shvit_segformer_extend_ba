@@ -3,8 +3,8 @@
 import numpy as np
 from vedo import dataurl, Plotter, Volume, show
 
-file_path = "/mnt/d/Datasets/shoes/images_3d/images_3d_SegFormer_2conv_320x320x320/volumes/Bruschi_down2_2_2.npy"
-
+# file_path = "/mnt/d/Datasets/shoes/images_3d/images_3d_SegFormer_2conv_320x320x320/volumes/Bruschi_down2_2_2.npy"
+file_path = "/mnt/c/Users/ChangGeng/Desktop/Projekte/Bachelorarbeit/SHVIT_SegFormer_BA/Datasets/shoes/images_3d/images_3d_SegFormer_2conv_224x224x224/volumes/Bruschi_down2_2_2.npy"
 
 # Load your 3D NumPy array
 volume_array = np.load(file_path)  # shape: (Z, Y, X)
